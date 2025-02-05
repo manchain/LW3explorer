@@ -29,38 +29,41 @@ function App() {
           </div>
         )}
 
-        <div className="max-w-[800px] mx-auto px-6">
-          <div className="text-[42px] font-bold leading-tight mb-2 animate-slide-up">
+        <div className="max-w-[800px] mx-auto px-4 sm:px-6">
+          {/* Title section */}
+          <div className="text-[32px] sm:text-[42px] font-bold leading-tight mb-2 animate-slide-up whitespace-nowrap">
             Global Supply Chain
           </div>
-          <div className="text-[18px] text-white/70 mb-8 animate-slide-up delay-100">
+          <div className="text-[16px] sm:text-[18px] text-white/70 mb-6 sm:mb-8 animate-slide-up delay-100">
             One platform, unlimited possibilities
           </div>
 
-          <div className="relative mb-8 animate-fade-in delay-200">
+          {/* Search section */}
+          <div className="relative mb-6 animate-fade-in delay-200">
             <FaSearch className={`absolute left-4 top-1/2 -translate-y-1/2 text-white/50 text-lg transition-colors duration-200 ${searchFocused ? 'text-white' : ''}`} />
             <input 
               type="text" 
-              className="w-full bg-white/10 text-white rounded-2xl py-4 pl-12 pr-4 outline-none text-[16px] transition-all duration-200 focus:bg-white/20 focus:ring-2 focus:ring-white/30"
+              className="w-full bg-white/10 text-white rounded-2xl py-3 sm:py-4 pl-12 pr-4 outline-none text-[14px] sm:text-[16px] transition-all duration-200 focus:bg-white/20 focus:ring-2 focus:ring-white/30"
               placeholder="Search by address, block, or tx hash"
               onFocus={() => setSearchFocused(true)}
               onBlur={() => setSearchFocused(false)}
             />
           </div>
 
-          <div className="flex gap-4">
-            {['24h Volume', 'Miles Moved', 'Active Objects'].map((label, index) => (
-              <div 
-                key={label}
-                className="bg-white/10 rounded-[16px] p-4 flex-1 transform transition-all duration-300 hover:bg-white/15 hover:-translate-y-1 animate-fade-in"
-                style={{ animationDelay: `${(index + 3) * 100}ms` }}
-              >
-                <div className="text-[#B3B3CC] text-[12px] whitespace-nowrap">{label}</div>
-                <div className="text-white text-[28px] font-bold mt-1">
-                  {index === 0 ? '$2.4M' : index === 1 ? '142K' : '5,234'}
-                </div>
-              </div>
-            ))}
+          {/* Stats section - Now in one line */}
+          <div className="grid grid-cols-3 gap-3 animate-fade-in delay-300">
+            <div className="bg-white/10 rounded-[16px] p-4 transform transition-all duration-300 hover:bg-white/15">
+              <div className="text-[#B3B3CC] text-[12px] whitespace-nowrap">24h Volume</div>
+              <div className="text-white text-[24px] sm:text-[28px] font-bold mt-1">$2.4M</div>
+            </div>
+            <div className="bg-white/10 rounded-[16px] p-4 transform transition-all duration-300 hover:bg-white/15">
+              <div className="text-[#B3B3CC] text-[12px] whitespace-nowrap">Miles Moved</div>
+              <div className="text-white text-[24px] sm:text-[28px] font-bold mt-1">142K</div>
+            </div>
+            <div className="bg-white/10 rounded-[16px] p-4 transform transition-all duration-300 hover:bg-white/15">
+              <div className="text-[#B3B3CC] text-[12px] whitespace-nowrap">Active Objects</div>
+              <div className="text-white text-[24px] sm:text-[28px] font-bold mt-1">5,234</div>
+            </div>
           </div>
         </div>
       </div>
