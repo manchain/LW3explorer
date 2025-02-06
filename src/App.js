@@ -1,9 +1,13 @@
 import React, { useState } from 'react';
 import { FaSearch, FaBars } from 'react-icons/fa';
+import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-router-dom';
+import VehicleDetails from './components/VehicleDetails';
 
-function App() {
+// Create a separate component for the home page content
+function HomePage() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [searchFocused, setSearchFocused] = useState(false);
+  const navigate = useNavigate();
 
   return (
     <div className="min-h-screen bg-[#000033]">
@@ -20,11 +24,24 @@ function App() {
         </header>
 
         {menuOpen && (
-          <div className="absolute top-20 right-4 bg-white/10 rounded-xl p-4 backdrop-blur-sm z-50 animate-scale-in">
-            <ul className="space-y-3">
-              <li className="hover:text-white/80 cursor-pointer transition-colors duration-200">Home</li>
-              <li className="hover:text-white/80 cursor-pointer transition-colors duration-200">Blocks</li>
-              <li className="hover:text-white/80 cursor-pointer transition-colors duration-200">Organizations</li>
+          <div className="absolute top-20 right-4 bg-[#000033] rounded-xl p-4 shadow-lg z-50 animate-scale-in border border-white/10">
+            <ul className="space-y-3 text-white">
+              <li 
+                onClick={() => navigate('/')} 
+                className="hover:text-white/80 cursor-pointer transition-colors duration-200 px-2 py-1 hover:bg-white/10 rounded"
+              >
+                Home
+              </li>
+              <li 
+                className="hover:text-white/80 cursor-pointer transition-colors duration-200 px-2 py-1 hover:bg-white/10 rounded"
+              >
+                Blocks
+              </li>
+              <li 
+                className="hover:text-white/80 cursor-pointer transition-colors duration-200 px-2 py-1 hover:bg-white/10 rounded"
+              >
+                Organizations
+              </li>
             </ul>
           </div>
         )}
@@ -122,8 +139,9 @@ function App() {
           ].map((org, index) => (
             <div 
               key={index}
-              className="bg-white rounded-[20px] p-5 mb-4 shadow-lg border border-gray-100 transform transition-all duration-300 hover:-translate-y-1 hover:shadow-xl animate-fade-in"
+              className="bg-white rounded-[20px] p-5 mb-4 shadow-lg border border-gray-100 transform transition-all duration-300 hover:-translate-y-1 hover:shadow-xl animate-fade-in cursor-pointer"
               style={{ animationDelay: `${(index + 8) * 100}ms` }}
+              onClick={() => org.name === 'Tata Logistics' && navigate('/vehicle/EV789')}
             >
               <div className="flex justify-between items-center">
                 <div className="flex items-center gap-4">
@@ -143,6 +161,18 @@ function App() {
         </div>
       </div>
     </div>
+  );
+}
+
+// Main App component
+function App() {
+  return (
+    <Router>
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/vehicle/:id" element={<VehicleDetails />} />
+      </Routes>
+    </Router>
   );
 }
 
