@@ -58,22 +58,40 @@ function VehicleDetails() {
             </div>
           </div>
 
-          {/* Stats Cards - Added hover effects and staggered animation */}
+          {/* Stats Cards */}
           <div className="flex flex-row justify-between gap-3 mb-6 px-0">
             {[
-              { bg: "F8FFF8", color: "0066FF", label: "Current Value", value: "$45,000" },
-              { bg: "F8F0FF", color: "8833FF", label: "Distance Moved", value: "1,234 mi" },
-              { bg: "F8FFF8", color: "00AA00", label: "Production Date", value: "Oct 15, 2023" }
+              { 
+                bg: "F8FFF8", 
+                color: "#0066FF", 
+                label: "Current Value", 
+                value: "$45,000",
+                labelColor: "#0066FF"  // Blue
+              },
+              { 
+                bg: "FAF5FF", 
+                color: "#8833FF", 
+                label: "Distance Moved", 
+                value: "1,234 mi",
+                labelColor: "#8833FF"  // Purple
+              },
+              { 
+                bg: "F8FFF8", 
+                color: "#00AA00", 
+                label: "Production Date", 
+                value: "Oct 15,2023",
+                labelColor: "#00AA00"  // Green
+              }
             ].map((stat, index) => (
               <div 
                 key={index}
-                className={`bg-[#${stat.bg}] rounded-2xl p-3 flex-1 hover:shadow-lg transition-all duration-300 hover:-translate-y-1`}
+                className={`bg-[${stat.bg === 'FAF5FF' ? '#FAF5FF' : '#F8FFF8'}] rounded-2xl p-3 flex-1 hover:shadow-lg transition-all duration-300 hover:-translate-y-1`}
                 style={{ 
                   animation: `slideUp 0.5s ease-out forwards`,
                   animationDelay: `${index * 150}ms`
                 }}
               >
-                <div className={`text-[#${stat.color}] text-[13px] whitespace-nowrap`}>
+                <div className="text-[13px] whitespace-nowrap" style={{ color: stat.labelColor }}>
                   {stat.label}
                 </div>
                 <div className="text-[18px] sm:text-[22px] font-bold text-[#1A1A1A] mt-1 whitespace-nowrap">
