@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { FaSearch, FaBars } from 'react-icons/fa';
 import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-router-dom';
 import VehicleDetails from './components/VehicleDetails';
+import BlockDetails from './components/BlockDetails';
 
 // Create a separate component for the home page content
 function HomePage() {
@@ -91,17 +92,18 @@ function HomePage() {
           <h2 className="text-[28px] font-bold mb-6 text-[#1A1A1A]">Recent Blocks</h2>
           
           {[
-            { time: '2 mins ago', value: '$1.2M', miles: '2,450' },
-            { time: '6 mins ago', value: '$5.5M', miles: '3,254' }
+            { time: '2 mins ago', value: '$1.2M', miles: '2,450', number: '1234567', transactions: '12' },
+            { time: '6 mins ago', value: '$5.5M', miles: '3,254', number: '1234566', transactions: '12' }
           ].map((block, index) => (
             <div 
               key={index}
-              className="bg-white rounded-[24px] p-6 mb-4 shadow-[0_2px_12px_rgba(0,0,0,0.08)] transform transition-all duration-300 hover:-translate-y-1 hover:shadow-lg animate-fade-in"
+              onClick={() => navigate(`/block/${block.number}`)}
+              className="bg-white rounded-[24px] p-6 mb-4 shadow-[0_2px_12px_rgba(0,0,0,0.08)] transform transition-all duration-300 hover:-translate-y-1 hover:shadow-lg animate-fade-in cursor-pointer"
               style={{ animationDelay: `${(index + 6) * 100}ms` }}
             >
               <div className="flex justify-between mb-6">
                 <div>
-                  <div className="text-[#1A1A1A] font-bold text-[22px] mb-1">Block #1234567</div>
+                  <div className="text-[#1A1A1A] font-bold text-[22px] mb-1">Block #{block.number}</div>
                   <div className="text-[#666666] text-[15px]">{block.time}</div>
                 </div>
                 <div className="text-right">
@@ -122,7 +124,8 @@ function HomePage() {
                   </div>
                   <span className="text-[15px] text-[#666666] ml-1">+1</span>
                 </div>
-                <div className="flex justify-between">
+                <div className="flex justify-between items-center">
+                  <div className="text-[#666666] text-[15px]">{block.transactions} Transactions</div>
                   <div className="text-[#666666] text-[15px]">{block.miles} Miles</div>
                 </div>
               </div>
@@ -171,6 +174,7 @@ function App() {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/vehicle/:id" element={<VehicleDetails />} />
+        <Route path="/block/:id" element={<BlockDetails />} />
       </Routes>
     </Router>
   );
