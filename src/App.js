@@ -3,12 +3,21 @@ import { FaSearch, FaBars } from 'react-icons/fa';
 import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-router-dom';
 import VehicleDetails from './components/VehicleDetails';
 import BlockDetails from './components/BlockDetails';
+import TransactionDetails from './components/TransactionDetails';
 
 // Create a separate component for the home page content
 function HomePage() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [searchFocused, setSearchFocused] = useState(false);
+  const [searchInput, setSearchInput] = useState('');
   const navigate = useNavigate();
+
+  const handleSearch = (e) => {
+    e.preventDefault();
+    if (searchInput === '#1234567') {
+      navigate('/block/1234567');
+    }
+  };
 
   return (
     <div className="min-h-screen bg-[#000033]">
@@ -58,14 +67,18 @@ function HomePage() {
 
           {/* Search section */}
           <div className="relative mb-6 animate-fade-in delay-200">
-            <FaSearch className={`absolute left-4 top-1/2 -translate-y-1/2 text-white/50 text-lg transition-colors duration-200 ${searchFocused ? 'text-white' : ''}`} />
-            <input 
-              type="text" 
-              className="w-full bg-white/10 text-white rounded-2xl py-3 sm:py-4 pl-12 pr-4 outline-none text-[14px] sm:text-[16px] transition-all duration-200 focus:bg-white/20 focus:ring-2 focus:ring-white/30"
-              placeholder="Search by address, block, or tx hash"
-              onFocus={() => setSearchFocused(true)}
-              onBlur={() => setSearchFocused(false)}
-            />
+            <form onSubmit={handleSearch} className="relative">
+              <FaSearch className={`absolute left-4 top-1/2 -translate-y-1/2 text-white/50 text-lg transition-colors duration-200 ${searchFocused ? 'text-white' : ''}`} />
+              <input 
+                type="text" 
+                value={searchInput}
+                onChange={(e) => setSearchInput(e.target.value)}
+                className="w-full bg-white/10 text-white rounded-2xl py-3 sm:py-4 pl-12 pr-4 outline-none text-[14px] sm:text-[16px] transition-all duration-200 focus:bg-white/20 focus:ring-2 focus:ring-white/30"
+                placeholder="Search by address, block, or tx hash"
+                onFocus={() => setSearchFocused(true)}
+                onBlur={() => setSearchFocused(false)}
+              />
+            </form>
           </div>
 
           {/* Stats section - Now in one line */}
@@ -117,7 +130,7 @@ function HomePage() {
                     <img src="/ebay-logo.png" alt="eBay" className="w-full h-full object-contain" />
                   </div>
                   <div className="w-[38px] h-[38px] rounded-full bg-[#F8F8F8] flex items-center justify-center p-2">
-                    <img src="/etsy-logo.png" alt="Etsy" className="w-full h-full object-contain" />
+                    <img src="/etsy-logo.jpg" alt="Etsy" className="w-full h-full object-contain" />
                   </div>
                   <div className="w-[38px] h-[38px] rounded-full bg-[#F8F8F8] flex items-center justify-center p-2">
                     <img src="/ford-logo.png" alt="Ford" className="w-full h-full object-contain" />
@@ -137,18 +150,24 @@ function HomePage() {
           <h2 className="text-[28px] font-bold mb-6 text-[#1A1A1A]">Top Organizations</h2>
           
           {[
-            { name: 'Ford Motors', type: 'Automotive', value: '$12.4M' },
-            { name: 'Tata Logistics', type: 'Transport', value: '$8.9M' }
+            { name: 'Ford', type: 'Automotive', value: '$12.4M' },
+            { name: 'Tata', type: 'Transport', value: '$8.9M' }
           ].map((org, index) => (
             <div 
               key={index}
+              onClick={() => {
+                if (org.name === 'Ford') {
+                  navigate('/vehicle/EV789');
+                } else if (org.name === 'Tata') {
+                  navigate('/vehicle/TL123');
+                }
+              }}
               className="bg-white rounded-[20px] p-5 mb-4 shadow-lg border border-gray-100 transform transition-all duration-300 hover:-translate-y-1 hover:shadow-xl animate-fade-in cursor-pointer"
               style={{ animationDelay: `${(index + 8) * 100}ms` }}
-              onClick={() => org.name === 'Tata Logistics' && navigate('/vehicle/EV789')}
             >
               <div className="flex justify-between items-center">
                 <div className="flex items-center gap-4">
-                  <img src="/ford-logo.png" alt="Ford" className="w-10 h-10 rounded-full bg-gray-100 p-2" />
+                  <img src={org.name === 'Ford' ? '/ford-logo.png' : '/tata-logo.png'} alt={org.name} className="w-10 h-10 rounded-full bg-gray-100 p-2" />
                   <div>
                     <div className="text-gray-800 font-bold text-[16px]">{org.name}</div>
                     <div className="text-gray-500 text-[14px]">{org.type}</div>
@@ -175,6 +194,7 @@ function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/vehicle/:id" element={<VehicleDetails />} />
         <Route path="/block/:id" element={<BlockDetails />} />
+        <Route path="/transaction/:id" element={<TransactionDetails />} />
       </Routes>
     </Router>
   );
