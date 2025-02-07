@@ -167,7 +167,7 @@ function HomePage() {
             >
               <div className="flex justify-between items-center">
                 <div className="flex items-center gap-4">
-                  <img src={org.name === 'Ford' ? '/ford-logo.png' : '/tata-logo.png'} alt={org.name} className="w-10 h-10 rounded-full bg-gray-100 p-2" />
+                  <img src={org.name === 'Ford' ? '/ford-logo.png' : '/tata-logo.jpg'} alt={org.name} className="w-10 h-10 rounded-full bg-gray-100 p-2" />
                   <div>
                     <div className="text-gray-800 font-bold text-[16px]">{org.name}</div>
                     <div className="text-gray-500 text-[14px]">{org.type}</div>

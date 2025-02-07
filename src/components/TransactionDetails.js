@@ -15,9 +15,9 @@ function TransactionDetails() {
       feeRecipient: 'beaverbuild',
       gasUsed: '20,526,216',
       gasLimit: '35,824,535',
-      baseFee: '0.999 Gwei',
-      reward: '0.02316 ETH',
-      burntFees: '0.020512 ETH',
+      baseFee: '0.999 ADA',
+      reward: '0.02316 ADA',
+      burntFees: '0.020512 ADA',
     },
     {
       block: '#1234568',
@@ -27,9 +27,9 @@ function TransactionDetails() {
       feeRecipient: 'rsync-builder.eth',
       gasUsed: '13,789,485',
       gasLimit: '35,789,586',
-      baseFee: '1.028 Gwei',
-      reward: '0.0264 ETH',
-      burntFees: '0.014187 ETH',
+      baseFee: '1.028 ADA',
+      reward: '0.0264 ADA',
+      burntFees: '0.014187 ADA',
     },
     {
       block: '#1234569',
@@ -39,9 +39,9 @@ function TransactionDetails() {
       feeRecipient: 'beaverbuild',
       gasUsed: '17,242,797',
       gasLimit: '35,824,569',
-      baseFee: '1.033 Gwei',
-      reward: '0.03011 ETH',
-      burntFees: '0.017823 ETH',
+      baseFee: '1.033 ADA',
+      reward: '0.03011 ADA',
+      burntFees: '0.017823 ADA',
     },
     {
       block: '#1234570',
@@ -51,9 +51,9 @@ function TransactionDetails() {
       feeRecipient: 'Titan Builder',
       gasUsed: '19,252,395',
       gasLimit: '35,859,587',
-      baseFee: '1.024 Gwei',
-      reward: '0.04174 ETH',
-      burntFees: '0.019718 ETH',
+      baseFee: '1.024 ADA',
+      reward: '0.04174 ADA',
+      burntFees: '0.019718 ADA',
     },
     {
       block: '#1234571',
@@ -63,9 +63,9 @@ function TransactionDetails() {
       feeRecipient: 'beaverbuild',
       gasUsed: '31,836,471',
       gasLimit: '35,894,639',
-      baseFee: '0.933 Gwei',
-      reward: '0.06959 ETH',
-      burntFees: '0.029731 ETH',
+      baseFee: '0.933 ADA',
+      reward: '0.06959 ADA',
+      burntFees: '0.029731 ADA',
     },
     {
       block: '#1234572',
@@ -75,9 +75,9 @@ function TransactionDetails() {
       feeRecipient: '0xcE086c8F...7FF123FA5',
       gasUsed: '7,812,436',
       gasLimit: '35,929,725',
-      baseFee: '1.004 Gwei',
-      reward: '0.01268 ETH',
-      burntFees: '0.007850 ETH',
+      baseFee: '1.004 ADA',
+      reward: '0.01268 ADA',
+      burntFees: '0.007850 ADA',
     },
     {
       block: '#1234573',
@@ -87,9 +87,9 @@ function TransactionDetails() {
       feeRecipient: 'beaverbuild',
       gasUsed: '12,119,825',
       gasLimit: '35,964,845',
-      baseFee: '1.047 Gwei',
-      reward: '0.01513 ETH',
-      burntFees: '0.012696 ETH',
+      baseFee: '1.047 ADA',
+      reward: '0.01513 ADA',
+      burntFees: '0.012696 ADA',
     },
     {
       block: '#1234574',
@@ -99,9 +99,9 @@ function TransactionDetails() {
       feeRecipient: 'beaverbuild',
       gasUsed: '21,243,187',
       gasLimit: '36,000,000',
-      baseFee: '1.024 Gwei',
-      reward: '0.02424 ETH',
-      burntFees: '0.021763 ETH',
+      baseFee: '1.024 ADA',
+      reward: '0.02424 ADA',
+      burntFees: '0.021763 ADA',
     },
     // Add more transactions as needed
   ];
@@ -142,7 +142,7 @@ function TransactionDetails() {
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Gas Limit</th>
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Base Fee</th>
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Reward</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Burnt Fees (ETH)</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Burnt Fees (ADA)</th>
                 </tr>
               </thead>
               <tbody className="bg-white divide-y divide-gray-200">

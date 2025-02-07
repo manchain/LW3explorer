@@ -51,7 +51,7 @@ function VehicleDetails() {
           {/* Vehicle Header */}
           <div className="flex items-center gap-4 mb-6 animate-fade-in">
             <div className="w-12 h-12 rounded-full bg-[#000033] flex items-center justify-center hover:scale-105 transition-transform duration-300 shadow-lg">
-              <img src="/tata-logo.png" alt="TT" className="w-8 h-8" />
+              <img src="/tata-logo.jpg" alt="TT" className="w-8 h-8" />
             </div>
             <div>
               <h1 className="text-xl font-bold text-[#1A1A1A]">Electric Vehicle #EV789</h1>
@@ -167,7 +167,7 @@ function VehicleDetails() {
                     <div className="flex items-center justify-between mb-3">
                       <div className="flex items-center gap-3">
                         <div className="w-10 h-10 rounded-full bg-[#000033] flex items-center justify-center">
-                          <img src="/tata-logo.png" alt="TT" className="w-6 h-6" />
+                          <img src="/tata-logo.jpg" alt="TT" className="w-6 h-6" />
                         </div>
                         <div>
                           <div className="font-medium text-[#1A1A1A]">{item.title}</div>
