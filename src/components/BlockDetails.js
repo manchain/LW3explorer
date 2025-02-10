@@ -80,13 +80,13 @@ function BlockDetails() {
                   <span className="text-gray-600">Organizations</span>
                   <div className="flex gap-2">
                     <div className="w-8 h-8 rounded-full bg-white shadow-sm flex items-center justify-center">
-                      <img src="/nvidia-logo.png" alt="NVIDIA" className="w-6 h-6 object-contain" />
+                      <img src="/nvidia-logo.jpg" alt="NVIDIA" className="w-6 h-6 object-contain" />
                     </div>
                     <div className="w-8 h-8 rounded-full bg-white shadow-sm flex items-center justify-center">
                       <img src="/walmart-logo.png" alt="Walmart" className="w-6 h-6 object-contain" />
                     </div>
                     <div className="w-8 h-8 rounded-full bg-white shadow-sm flex items-center justify-center">
-                      <img src="/mastercard-logo.png" alt="Mastercard" className="w-6 h-6 object-contain" />
+                      <img src="/mastercard-logo.jpg" alt="Mastercard" className="w-6 h-6 object-contain" />
                     </div>
                   </div>
                 </div>
