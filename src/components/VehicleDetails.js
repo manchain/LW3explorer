@@ -109,7 +109,7 @@ function VehicleDetails() {
                 <h2 className="text-lg sm:text-xl lg:text-2xl font-bold mb-4 text-[#1A1A1A]">Movement Track</h2>
                 <div className="bg-[#F5F5F5] rounded-2xl p-4 sm:p-6">
                   <div className="h-40 sm:h-48 lg:h-56 bg-gray-200 rounded-xl mb-4 flex items-center justify-center text-gray-500">
-                    Map View
+                    <img src="/map-image.jpg" alt="Map View" className="w-full h-full object-cover rounded-xl" />
                   </div>
                   <div className="flex justify-between items-center">
                     <div>
