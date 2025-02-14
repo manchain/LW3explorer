@@ -1,31 +1,53 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { FaArrowLeft, FaBars } from 'react-icons/fa';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import { GoogleMap, LoadScript, DirectionsService, DirectionsRenderer } from '@react-google-maps/api';
 
 const TransactionDetails = () => {
-  useParams();
   const navigate = useNavigate();
   const [menuOpen, setMenuOpen] = useState(false);
+  const [directions, setDirections] = useState(null);
+  const [error, setError] = useState(null);
 
   // Sample data for demonstration
   const transactionData = {
-    hash: '152febead42be48abd83553933e312bb938654dba750035b4b613e5edfe67754',
-    block: '11479180',
-    assurance: 'High',
-    confirmations: 3170,
-    epochSlot: '539 / 404805',
-    absoluteSlot: '147889605',
+    hash: '34c4ef58189040664dde284aca4e6ba020c96b5647ebbf9b12fb15e9d25817f4',
+    block: '11482520',
+    assurance: 'Low',
+    confirmations: 1,
     message: 'Minswap: Order Executed',
-    timestamp: 'Feb 13, 2025 7:41:36 PM (Confirmed within 7 secs)',
-    totalFees: '0.664805 ADA (0.53 $)',
-    totalOutput: '6,268,556.507552 ADA (5,012,381.66 $)',
+    timestamp: 'Feb 14, 2025 2:12:27 PM (Confirmed within 15 secs)',
+    totalFees: '0.178745 USD (0.14 $)',
+    totalOutput: '8.35801 USD (6.79 $)',
     certificates: 0,
-    ttl: 'Feb 13, 2025 7:44:22 PM (147889771)',
+    ttl: 'Feb 14, 2025 2:15:27 PM (147956257)',
   };
 
   const handleBack = () => {
     navigate(-1); // Navigate back to the previous page
   };
+
+  useEffect(() => {
+    const fetchDirections = async () => {
+      const apiKey = 'AlzaSyBu7MXTTobsgipvNHSSPLe-EWj0uqMClLI'; // Replace with your Google Maps API key
+      const origin = 'Mumbai, India';
+      const destination = 'Delhi, India';
+
+      try {
+        const response = await axios.get(`https://maps.gomaps.pro/maps/api/distancematrix/json?destinations=Delhi&origins=Mumbai&key=AlzaSyBu7MXTTobsgipvNHSSPLe-EWj0uqMClLI`);
+        if (response.data.status === 'OK') {
+          setDirections(response.data.routes[0]);
+        } else {
+          setError(response.data.error_message);
+        }
+      } catch (error) {
+        console.error('Error fetching directions:', error);
+      }
+    };
+
+    fetchDirections();
+  }, []);
 
   return (
     <div className="min-h-screen bg-[#000033] p-6">
@@ -63,40 +85,66 @@ const TransactionDetails = () => {
         </div>
       )}
       <h1 className="text-white text-2xl font-bold mb-4">Transaction Details</h1>
-      <div className="bg-white rounded-lg shadow-lg p-6 border border-gray-300">
-        <div className="mb-4">
-          <span className="font-bold">Transaction Hash:</span> {transactionData.hash}
+      <div className="bg-white rounded-lg shadow-lg p-6 border border-gray-300 grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div className="flex flex-col">
+          <span className="font-bold text-black">Transaction Hash</span>
+          <span className="text-gray-400">{transactionData.hash}</span>
         </div>
-        <div className="mb-4">
-          <span className="font-bold">Block:</span> {transactionData.block}
+        <div className="flex flex-col">
+          <span className="font-bold text-black">Block</span>
+          <span className="text-gray-400">{transactionData.block}</span>
         </div>
-        <div className="mb-4">
-          <span className="font-bold">Assurance:</span> {transactionData.assurance} ({transactionData.confirmations} confirmations)
+        <div className="flex flex-col">
+          <span className="font-bold text-black">Assurance</span>
+          <span className="text-gray-400">{transactionData.assurance} ({transactionData.confirmations} confirmation)</span>
         </div>
-        <div className="mb-4">
-          <span className="font-bold">Epoch / Slot:</span> {transactionData.epochSlot}
+        <div className="flex flex-col">
+          <span className="font-bold text-black">Message</span>
+          <span className="text-gray-400">{transactionData.message}</span>
         </div>
-        <div className="mb-4">
-          <span className="font-bold">Absolute Slot:</span> {transactionData.absoluteSlot}
+        <div className="flex flex-col">
+          <span className="font-bold text-black">Timestamp</span>
+          <span className="text-gray-400">{transactionData.timestamp}</span>
         </div>
-        <div className="mb-4">
-          <span className="font-bold">Message:</span> {transactionData.message}
+        <div className="flex flex-col">
+          <span className="font-bold text-black">Total Fees</span>
+          <span className="text-red-500">{transactionData.totalFees}</span>
         </div>
-        <div className="mb-4">
-          <span className="font-bold">Timestamp:</span> {transactionData.timestamp}
+        <div className="flex flex-col">
+          <span className="font-bold text-black">Total Valued</span>
+          <span className="text-green-500">{transactionData.totalOutput}</span>
         </div>
-        <div className="mb-4">
-          <span className="font-bold">Total Fees:</span> {transactionData.totalFees}
+        <div className="flex flex-col">
+          <span className="font-bold text-black">Certificates</span>
+          <span className="text-gray-400">{transactionData.certificates}</span>
         </div>
-        <div className="mb-4">
-          <span className="font-bold">Total Output:</span> {transactionData.totalOutput}
+        <div className="flex flex-col">
+          <span className="font-bold text-black">TTL</span>
+          <span className="text-gray-400">{transactionData.ttl}</span>
         </div>
-        <div className="mb-4">
-          <span className="font-bold">Certificates:</span> {transactionData.certificates}
-        </div>
-        <div className="mb-4">
-          <span className="font-bold">TTL:</span> {transactionData.ttl}
-        </div>
+      </div>
+
+      {/* Movement Track Section */}
+      <div className="animate-fade-in mt-6">
+        <h2 className="text-lg sm:text-xl lg:text-2xl font-bold mb-4 text-white">Movement Track</h2>
+        {error ? (
+          <div className="text-red-500">{error}</div>
+        ) : (
+          <LoadScript googleMapsApiKey="AlzaSyBu7MXTTobsgipvNHSSPLe-EWj0uqMClLI"> 
+            <GoogleMap
+              mapContainerStyle={{ height: "400px", width: "100%" }}
+              center={{ lat: 23.5937, lng: 77.2090 }} // Center between Mumbai and Delhi
+              zoom={5}
+            >
+              {directions && (
+                <DirectionsRenderer
+                  directions={directions}
+                  options={{ suppressMarkers: true }} 
+                />
+              )}
+            </GoogleMap>
+          </LoadScript>
+        )}
       </div>
     </div>
   );

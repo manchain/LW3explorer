@@ -122,29 +122,29 @@ function HomePage() {
                 <div className="flex font-bold text-sm md:text-base border-b pb-2">
                   <div className="flex-1 text-center">Transaction Hash</div>
                   <div className="flex-1 text-center">Block</div>
-                  <div className="flex-1 text-center">Output Address</div>
-                  <div className="flex-1 text-center">Output</div>
+                  <div className="flex-1 text-center">Address</div>
+                  <div className="flex-1 text-center">Total Value</div>
                 </div>
                 {[
-                  { hash: 'd13e459c..7eea6029', block: '11477581', address: 'addr1q8n..8qevvh9g', output: '83,043.223637 ADA', time: '4 minutes ago' },
-                  { hash: '988edd43..3bc15dd5', block: '11477581', address: 'addr1qyq..2sf7ew7h', output: '59,815.772739 ADA', time: '5 minutes ago' },
-                  { hash: 'abd9b06b..f1842756', block: '11477581', address: 'addr1v83..9qymj0zq', output: '3,309.644402 ADA', time: '6 minutes ago' },
-                  { hash: '2c377ba5..eca22af1', block: '11477581', address: 'addr1qxc..lsvm5ygk', output: '150.173629 ADA', time: '7 minutes ago' },
-                  { hash: '516e89aa..cd7ec044', block: '11477581', address: 'Indigo P..col iBTC', output: '1,783.141664 ADA', time: '8 minutes ago' },
-                  { hash: '1486838c..25d5f9fc', block: '11477581', address: 'addr1qym..vqX0djp', output: '1,298.185708 ADA', time: '9 minutes ago' },
-                  { hash: 'bb3c4953..532f164c', block: '11477581', address: 'addr1v3..lckg3fqh', output: '4,110.442959 ADA', time: '10 minutes ago' },
-                  { hash: '1486838c..25d5f9fc', block: '11477581', address: 'addr1qym..vqX0djp', output: '1,298.185708 ADA', time: '9 minutes ago' },
-                  { hash: 'bb3c4953..532f164c', block: '11477581', address: 'addr1v3..lckg3fqh', output: '4,110.442959 ADA', time: '10 minutes ago' },
-                  { hash: '1486838c..25d5f9fc', block: '11477581', address: 'addr1qym..vqX0djp', output: '1,298.185708 ADA', time: '9 minutes ago' },
-                  { hash: 'bb3c4953..532f164c', block: '11477581', address: 'addr1v3..lckg3fqh', output: '4,110.442959 ADA', time: '10 minutes ago' },
-                  { hash: '1486838c..25d5f9fc', block: '11477581', address: 'addr1qym..vqX0djp', output: '1,298.185708 ADA', time: '9 minutes ago' },
-                  { hash: 'bb3c4953..532f164c', block: '11477581', address: 'addr1v3..lckg3fqh', output: '4,110.442959 ADA', time: '10 minutes ago' },
-                  { hash: '1486838c..25d5f9fc', block: '11477581', address: 'addr1qym..vqX0djp', output: '1,298.185708 ADA', time: '9 minutes ago' },
-                  { hash: 'bb3c4953..532f164c', block: '11477581', address: 'addr1v3..lckg3fqh', output: '4,110.442959 ADA', time: '10 minutes ago' },
-                  { hash: '1486838c..25d5f9fc', block: '11477581', address: 'addr1qym..vqX0djp', output: '1,298.185708 ADA', time: '9 minutes ago' },
-                  { hash: 'bb3c4953..532f164c', block: '11477581', address: 'addr1v3..lckg3fqh', output: '4,110.442959 ADA', time: '10 minutes ago' },
-                  { hash: '1486838c..25d5f9fc', block: '11477581', address: 'addr1qym..vqX0djp', output: '1,298.185708 ADA', time: '9 minutes ago' },
-                  { hash: 'bb3c4953..532f164c', block: '11477581', address: 'addr1v3..lckg3fqh', output: '4,110.442959 ADA', time: '10 minutes ago' },
+                  { hash: 'd13e459c..7eea6029', block: '11477581', address: 'addr1q8n..8qevvh9g', output: '83,043.223637 USD', time: '4 minutes ago' },
+                  { hash: '988edd43..3bc15dd5', block: '11477581', address: 'addr1qyq..2sf7ew7h', output: '59,815.772739 USD', time: '5 minutes ago' },
+                  { hash: 'abd9b06b..f1842756', block: '11477581', address: 'addr1v83..9qymj0zq', output: '3,309.644402 USD', time: '6 minutes ago' },
+                  { hash: '2c377ba5..eca22af1', block: '11477581', address: 'addr1qxc..lsvm5ygk', output: '150.173629 USD', time: '7 minutes ago' },
+                  { hash: '516e89aa..cd7ec044', block: '11477581', address: 'Indigo P..col iBTC', output: '1,783.141664 USD', time: '8 minutes ago' },
+                  { hash: '1486838c..25d5f9fc', block: '11477581', address: 'addr1qym..vqX0djp', output: '1,298.185708 USD', time: '9 minutes ago' },
+                  { hash: 'bb3c4953..532f164c', block: '11477581', address: 'addr1v3..lckg3fqh', output: '4,110.442959 USD', time: '10 minutes ago' },
+                  { hash: '1486838c..25d5f9fc', block: '11477581', address: 'addr1qym..vqX0djp', output: '1,298.185708 USD', time: '9 minutes ago' },
+                  { hash: 'bb3c4953..532f164c', block: '11477581', address: 'addr1v3..lckg3fqh', output: '4,110.442959 USD', time: '10 minutes ago' },
+                  { hash: '1486838c..25d5f9fc', block: '11477581', address: 'addr1qym..vqX0djp', output: '1,298.185708 USD', time: '9 minutes ago' },
+                  { hash: 'bb3c4953..532f164c', block: '11477581', address: 'addr1v3..lckg3fqh', output: '4,110.442959 USD', time: '10 minutes ago' },
+                  { hash: '1486838c..25d5f9fc', block: '11477581', address: 'addr1qym..vqX0djp', output: '1,298.185708 USD', time: '9 minutes ago' },
+                  { hash: 'bb3c4953..532f164c', block: '11477581', address: 'addr1v3..lckg3fqh', output: '4,110.442959 USD', time: '10 minutes ago' },
+                  { hash: '1486838c..25d5f9fc', block: '11477581', address: 'addr1qym..vqX0djp', output: '1,298.185708 USD', time: '9 minutes ago' },
+                  { hash: 'bb3c4953..532f164c', block: '11477581', address: 'addr1v3..lckg3fqh', output: '4,110.442959 USD', time: '10 minutes ago' },
+                  { hash: '1486838c..25d5f9fc', block: '11477581', address: 'addr1qym..vqX0djp', output: '1,298.185708 USD', time: '9 minutes ago' },
+                  { hash: 'bb3c4953..532f164c', block: '11477581', address: 'addr1v3..lckg3fqh', output: '4,110.442959 USD', time: '10 minutes ago' },
+                  { hash: '1486838c..25d5f9fc', block: '11477581', address: 'addr1qym..vqX0djp', output: '1,298.185708 USD', time: '9 minutes ago' },
+                  { hash: 'bb3c4953..532f164c', block: '11477581', address: 'addr1v3..lckg3fqh', output: '4,110.442959 USD', time: '10 minutes ago' },
                 ].map((transaction, index) => (
                   <div key={index} className="flex text-sm border-b py-2">
                     <div className="flex-1 text-blue-600 cursor-pointer text-center" onClick={() => navigate(`/transaction/${transaction.hash}`)}>
@@ -177,37 +177,33 @@ function HomePage() {
               <div className="min-w-max">
                 <div className="flex font-bold text-sm md:text-base border-b pb-2">
                   <div className="flex-1 text-center">Block</div>
-                  <div className="flex-1 text-center">Epoch / Slot</div>
-                  <div className="flex-1 text-center">Pool</div>
                   <div className="flex-1 text-center">Transactions</div>
-                  <div className="flex-1 text-center">Output</div>
+                  <div className="flex-1 text-center">TVM</div>
                 </div>
                 {[
-                  { block: '11477581', epoch: '539 / 372920', pool: 'Moonstake 9', transactions: '14', output: '713,148.792739 ADA', time: '4 minutes ago' },
-                  { block: '11477580', epoch: '539 / 372892', pool: 'Emurgo B', transactions: '6', output: '6,269,710.564119 ADA', time: '5 minutes ago' },
-                  { block: '11477579', epoch: '539 / 372884', pool: '3c2dedcde..c837', transactions: '0', output: '0.0 ADA', time: '6 minutes ago' },
-                  { block: '11477578', epoch: '539 / 372883', pool: 'ADA Ocean Two', transactions: '13', output: '11,727,044.0463 ADA', time: '7 minutes ago' },
-                  { block: '11477577', epoch: '539 / 372823', pool: '(Crypto C...) #Pool4', transactions: '10', output: '793,202.1301 ADA', time: '8 minutes ago' },
-                  { block: '11477576', epoch: '539 / 372822', pool: 'Pool 5', transactions: '5', output: '1,000.0000 ADA', time: '9 minutes ago' },
-                  { block: '11477575', epoch: '539 / 372821', pool: 'Pool 6', transactions: '8', output: '2,50,000.00 ADA', time: '10 minutes ago' },
-                  { block: '11477576', epoch: '539 / 372822', pool: 'Pool 5', transactions: '5', output: '1,000.0000 ADA', time: '9 minutes ago' },
-                  { block: '11477575', epoch: '539 / 372821', pool: 'Pool 6', transactions: '8', output: '2,50,000.00 ADA', time: '10 minutes ago' },
-                  { block: '11477576', epoch: '539 / 372822', pool: 'Pool 5', transactions: '5', output: '1,000.0000 ADA', time: '9 minutes ago' },
-                  { block: '11477575', epoch: '539 / 372821', pool: 'Pool 6', transactions: '8', output: '2,50,000.00 ADA', time: '10 minutes ago' },
-                  { block: '11477576', epoch: '539 / 372822', pool: 'Pool 5', transactions: '5', output: '1,000.0000 ADA', time: '9 minutes ago' },
-                  { block: '11477575', epoch: '539 / 372821', pool: 'Pool 6', transactions: '8', output: '2,50,000.00 ADA', time: '10 minutes ago' },
-                  { block: '11477576', epoch: '539 / 372822', pool: 'Pool 5', transactions: '5', output: '1,000.0000 ADA', time: '9 minutes ago' },
-                  { block: '11477575', epoch: '539 / 372821', pool: 'Pool 6', transactions: '8', output: '2,50,000.00 ADA', time: '10 minutes ago' },
+                  { block: '11477581',  transactions: '14', tvm: '713,148.792739 USD', time: '4 minutes ago' },
+                  { block: '11477580',  transactions: '6', tvm: '6,269,710.564119 USD', time: '5 minutes ago' },
+                  { block: '11477579',  transactions: '0', tvm: '0.0 USD', time: '6 minutes ago' },
+                  { block: '11477578',  transactions: '13', tvm: '11,727,044.0463 USD', time: '7 minutes ago' },
+                  { block: '11477577',  transactions: '10', tvm: '793,202.1301 USD', time: '8 minutes ago' },
+                  { block: '11477576',  transactions: '5', tvm: '1,000.0000 USD', time: '9 minutes ago' },
+                  { block: '11477575',  transactions: '8', tvm: '2,50,000.00 USD', time: '10 minutes ago' },
+                  { block: '11477576',  transactions: '5', tvm: '1,000.0000 USD', time: '9 minutes ago' },
+                  { block: '11477575',  transactions: '8', tvm: '2,50,000.00 USD', time: '10 minutes ago' },
+                  { block: '11477576',  transactions: '5', tvm: '1,000.0000 USD', time: '9 minutes ago' },
+                  { block: '11477575',  transactions: '8', tvm: '2,50,000.00 USD', time: '10 minutes ago' },
+                  { block: '11477576',  transactions: '5', tvm: '1,000.0000 USD', time: '9 minutes ago' },
+                  { block: '11477575',  transactions: '8', tvm: '2,50,000.00 USD', time: '10 minutes ago' },
+                  { block: '11477576',  transactions: '5', tvm: '1,000.0000 USD', time: '9 minutes ago' },
+                  { block: '11477575',  transactions: '8', tvm: '2,50,000.00 USD', time: '10 minutes ago' },
                 ].map((block, index) => (
                   <div key={index} className="flex text-sm border-b py-2">
                     <div className="flex-1 text-blue-600 cursor-pointer text-center" onClick={() => navigate(`/block/${block.block}`)}>
                       {block.block}
                       <div className="text-black text-xs">{block.time}</div>
                     </div>
-                    <div className="flex-1 text-black text-center">{block.epoch}</div>
-                    <div className="flex-1 text-black text-center">{block.pool}</div>
                     <div className="flex-1 text-blue-600 text-center">{block.transactions}</div>
-                    <div className="flex-1 text-green-500 text-center">{block.output}</div>
+                    <div className="flex-1 text-green-500 text-center">{block.tvm}</div>
                   </div>
                 ))}
               </div>
