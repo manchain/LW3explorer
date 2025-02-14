@@ -17,6 +17,9 @@ function HomePage() {
     if (searchInput === '#1234567') {
       navigate('/block/1234567');
     }
+    if (searchInput === '152febead42be48abd83553933e312bb938654dba750035b4b613e5edfe67754') {
+      navigate(`/transaction/${searchInput}`); 
+    }
   };
 
   return (
