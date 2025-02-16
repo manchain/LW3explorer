@@ -5,6 +5,13 @@ import VehicleDetails from './components/VehicleDetails';
 import BlockDetails from './components/BlockDetails';
 import TransactionDetails from './components/TransactionDetails';
 import QRScanner from './components/QRScanner';
+import axios from 'axios';
+
+// Configure axios defaults
+axios.defaults.baseURL = 'http://64.227.185.193:3009';
+axios.defaults.headers.common['Accept'] = 'application/json';
+axios.defaults.headers.common['Content-Type'] = 'application/json';
+axios.defaults.withCredentials = false; // Important for CORS
 
 // Created a separate component for the home page content
 function HomePage() {
@@ -32,23 +39,17 @@ function HomePage() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('/api/landing');
-
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-
-        const jsonData = await response.json();
-        console.log('API Response:', jsonData);
+        const response = await axios.get('/landing');
+        console.log('API Response:', response.data);
 
         setData({
           statistics: {
-            totalObjects: jsonData.statistics.totalObjects || 0,
-            totalVolume: jsonData.statistics.totalVolume || 0,
-            totalDistance: jsonData.statistics.totalDistance || 0
+            totalObjects: response.data.statistics.totalObjects || 0,
+            totalVolume: response.data.statistics.totalVolume || 0,
+            totalDistance: response.data.statistics.totalDistance || 0
           },
-          recentTransactions: jsonData.recentTransactions || [],
-          recentBlocks: jsonData.recentBlocks || []
+          recentTransactions: response.data.recentTransactions || [],
+          recentBlocks: response.data.recentBlocks || []
         });
       } catch (error) {
         console.error('Error details:', error);
