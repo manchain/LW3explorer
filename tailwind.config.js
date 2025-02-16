@@ -32,6 +32,11 @@ module.exports = {
           '0%': { transform: 'scale(0.95)', opacity: '0' },
           '100%': { transform: 'scale(1)', opacity: '1' },
         },
+        settlement: {
+          '0%': { transform: 'translateX(-100%)' },
+          '50%': { transform: 'translateX(0)' },
+          '100%': { transform: 'translateX(100%)' }
+        }
       },
       animation: {
         'slide-in': 'slideIn 0.2s ease-out',
@@ -39,6 +44,7 @@ module.exports = {
         'fade-in': 'fadeIn 0.5s ease-out',
         'scale-in': 'scaleIn 0.5s ease-out',
         'pulse-slow': 'pulse 3s infinite',
+        'settlement': 'settlement 2s ease-in-out infinite',
       },
     },
   },

@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { FaSearch, FaBars } from 'react-icons/fa';
+import { FaSearch, FaBars, FaQrcode } from 'react-icons/fa';
 import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-router-dom';
 import VehicleDetails from './components/VehicleDetails';
 import BlockDetails from './components/BlockDetails';
 import TransactionDetails from './components/TransactionDetails';
+import QRScanner from './components/QRScanner';
 
 // Created a separate component for the home page content
 function HomePage() {
@@ -15,18 +16,31 @@ function HomePage() {
   const [error, setError] = useState(null);
   const navigate = useNavigate();
 
+  const formatNumber = (num) => {
+    if (num >= 1000000000) {
+      return (num / 1000000000).toFixed(1) + 'B';
+    }
+    if (num >= 1000000) {
+      return (num / 1000000).toFixed(1) + 'M';
+    }
+    if (num >= 1000) {
+      return (num / 1000).toFixed(1) + 'K';
+    }
+    return num.toFixed(1);
+  };
+
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await fetch('/api/landing');
-        
+
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
-        
+
         const jsonData = await response.json();
         console.log('API Response:', jsonData);
-        
+
         setData({
           statistics: {
             totalObjects: jsonData.statistics.totalObjects || 0,
@@ -85,8 +99,8 @@ function HomePage() {
       <div className="min-h-screen bg-[#000033] text-white flex items-center justify-center">
         <div className="text-center">
           <div className="text-red-500 text-xl mb-4">{error}</div>
-          <button 
-            onClick={() => window.location.reload()} 
+          <button
+            onClick={() => window.location.reload()}
             className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
           >
             Retry
@@ -118,12 +132,21 @@ function HomePage() {
       <div className="bg-[#000033] text-white px-4 py-6 pb-32">
         <header className="flex justify-between items-center mb-8 animate-fade-in">
           <span className="text-[22px] font-medium">LW3 explorer</span>
-          <button 
-            onClick={() => setMenuOpen(!menuOpen)} 
-            className="text-2xl text-white/80 hover:text-white transition-colors duration-200"
-          >
-            <FaBars className={`transform transition-transform duration-200 ${menuOpen ? 'rotate-90' : ''}`} />
-          </button>
+          <div className="flex items-center gap-4">
+            <button
+              onClick={() => navigate('/scan')}
+              className="flex items-center gap-2 bg-white/10 hover:bg-white/20 transition-colors duration-200 px-4 py-2 rounded-lg"
+            >
+              <FaQrcode className="text-lg" />
+              <span className="text-sm">Scan Passport</span>
+            </button>
+            <button
+              onClick={() => setMenuOpen(!menuOpen)}
+              className="text-2xl text-white/80 hover:text-white transition-colors duration-200"
+            >
+              <FaBars className={`transform transition-transform duration-200 ${menuOpen ? 'rotate-90' : ''}`} />
+            </button>
+          </div>
         </header>
 
         {/* Hamburger Menu */}
@@ -131,7 +154,7 @@ function HomePage() {
           <div className="fixed top-0 right-0 h-full w-64 bg-[#000033] shadow-lg z-50 transform transition-transform duration-300 ease-in-out">
             <div className="p-4">
               <div className="flex justify-end">
-                <button 
+                <button
                   onClick={() => setMenuOpen(false)}
                   className="text-white/80 hover:text-white"
                 >
@@ -166,7 +189,7 @@ function HomePage() {
 
           {/* Search section */}
           <div className="relative mb-6 animate-fade-in delay-200">
-            <form 
+            <form
               onSubmit={handleSearch}
               className={`flex-1 max-w-2xl mx-4 relative ${searchFocused ? 'z-10' : ''}`}
             >
@@ -193,19 +216,19 @@ function HomePage() {
           {/* Stats section with API data */}
           <div className="grid grid-cols-3 gap-3 animate-fade-in delay-300">
             <div className="bg-white/10 rounded-[16px] p-4 transform transition-all duration-300 hover:bg-white/15">
-              <div className="text-[#B3B3CC] text-[12px] whitespace-nowrap">24h Volume</div>
+              <div className="text-[#B3B3CC] text-[11px] whitespace-nowrap">24h Volume</div>
               <div className="text-white text-[24px] sm:text-[28px] font-bold mt-1">
-                ${data.statistics.totalVolume.toLocaleString()}
+                ${formatNumber(data.statistics.totalVolume)}
               </div>
             </div>
             <div className="bg-white/10 rounded-[16px] p-4 transform transition-all duration-300 hover:bg-white/15">
-              <div className="text-[#B3B3CC] text-[12px] whitespace-nowrap">Miles Moved</div>
+              <div className="text-[#B3B3CC] text-[11px] whitespace-nowrap">Miles Moved</div>
               <div className="text-white text-[24px] sm:text-[28px] font-bold mt-1">
-                {data.statistics.totalDistance.toFixed(2)}
+                {formatNumber(data.statistics.totalDistance)}
               </div>
             </div>
             <div className="bg-white/10 rounded-[16px] p-4 transform transition-all duration-300 hover:bg-white/15">
-              <div className="text-[#B3B3CC] text-[12px] whitespace-nowrap">Active Objects</div>
+              <div className="text-[#B3B3CC] text-[11px] whitespace-nowrap">Active Objects</div>
               <div className="text-white text-[24px] sm:text-[28px] font-bold mt-1">
                 {data.statistics.totalObjects}
               </div>
@@ -221,7 +244,7 @@ function HomePage() {
           <div className="bg-white text-black rounded-[20px] p-5 shadow-lg flex flex-col h-[550px] overflow-y-auto">
             <div className="flex justify-between items-center mb-4">
               <h2 className="text-[24px] font-bold">Recent Transactions</h2>
-              <button 
+              <button
                 onClick={() => navigate('/transaction-details')}
                 className="text-blue-500 bg-gray-200 rounded px-2 py-1 hover:bg-gray-300 transition duration-200"
               >
@@ -230,20 +253,32 @@ function HomePage() {
             </div>
             <div className="overflow-x-auto">
               <div className="min-w-max">
+                {/* Column Headers */}
+                <div className="flex text-sm font-medium text-gray-600 border-b py-2 mb-2">
+                  <div className="flex-1 text-center">Transaction Hash</div>
+                  <div className="flex-1 text-center">Block</div>
+                  <div className="flex-1 text-center">Object</div>
+                  <div className="flex-1 text-center">Distance</div>
+                </div>
                 {data.recentTransactions.map((transaction) => (
                   <div key={transaction.transactionHash} className="flex text-sm border-b py-2">
-                    <div className="flex-1 text-blue-600 cursor-pointer text-center" 
-                         onClick={() => navigate(`/transaction/${transaction.transactionHash}`)}>
+                    <div className="flex-1 text-blue-600 cursor-pointer text-center"
+                      onClick={() => navigate(`/transaction/${transaction.transactionHash}`)}>
                       {transaction.transactionHash.substring(0, 20)}...
                       <div className="text-black text-xs">
                         {new Date(transaction.timestamp).toLocaleString()}
                       </div>
                     </div>
-                    <div className="flex-1 text-blue-600 cursor-pointer text-center" 
-                         onClick={() => navigate(`/block/${transaction.blockNumber}`)}>
+                    <div className="flex-1 text-blue-600 cursor-pointer text-center"
+                      onClick={() => navigate(`/block/${transaction.blockNumber}`)}>
                       {transaction.blockNumber}
                     </div>
-                    <div className="flex-1 text-black text-center">{transaction.object.name}</div>
+                    <div
+                      className="flex-1 text-blue-600 cursor-pointer text-center hover:text-blue-800"
+                      onClick={() => navigate(`/vehicle/${transaction.object.address}`)}
+                    >
+                      {transaction.object.name}
+                    </div>
                     <div className="flex-1 text-green-500 text-center">
                       {transaction.distanceMoved.toFixed(2)} miles
                     </div>
@@ -257,7 +292,7 @@ function HomePage() {
           <div className="bg-white text-black rounded-[20px] p-5 shadow-lg flex flex-col h-[550px] overflow-y-auto">
             <div className="flex justify-between items-center mb-4">
               <h2 className="text-[24px] font-bold">Recent Blocks</h2>
-              <button 
+              <button
                 onClick={() => navigate('/block-details')}
                 className="text-blue-500 bg-gray-200 rounded px-2 py-1 hover:bg-gray-300 transition duration-200"
               >
@@ -266,10 +301,16 @@ function HomePage() {
             </div>
             <div className="overflow-x-auto">
               <div className="min-w-max">
+                {/* Column Headers */}
+                <div className="flex text-sm font-medium text-gray-600 border-b py-2 mb-2">
+                  <div className="flex-1 text-center">Block Number</div>
+                  <div className="flex-1 text-center">Transactions</div>
+                  <div className="flex-1 text-center">Total Value</div>
+                </div>
                 {data.recentBlocks.map((block) => (
                   <div key={block.blockNumber} className="flex text-sm border-b py-2">
-                    <div className="flex-1 text-blue-600 cursor-pointer text-center" 
-                         onClick={() => navigate(`/block/${block.blockNumber}`)}>
+                    <div className="flex-1 text-blue-600 cursor-pointer text-center"
+                      onClick={() => navigate(`/block/${block.blockNumber}`)}>
                       {block.blockNumber}
                       <div className="text-black text-xs">{block.timestamp}</div>
                     </div>
@@ -297,6 +338,7 @@ function App() {
         <Route path="/vehicle/:id" element={<VehicleDetails />} />
         <Route path="/block/:id" element={<BlockDetails />} />
         <Route path="/transaction/:id" element={<TransactionDetails />} />
+        <Route path="/scan" element={<QRScanner />} />
       </Routes>
     </Router>
   );
