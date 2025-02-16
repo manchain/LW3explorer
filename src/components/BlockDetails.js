@@ -1,10 +1,86 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { FaArrowLeft, FaBars } from 'react-icons/fa';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 function BlockDetails() {
+  const [data, setData] = useState(null);
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
+  const { id } = useParams();
   const [menuOpen, setMenuOpen] = useState(false);
+
+  useEffect(() => {
+    const fetchBlockData = () => {
+      const xhr = new XMLHttpRequest();
+      xhr.open('GET', `http://localhost:3001/api/block/${id}`);
+      
+      xhr.onreadystatechange = function() {
+        if (xhr.readyState !== 4) return;
+
+        if (xhr.status === 200) {
+          try {
+            const jsonData = JSON.parse(xhr.responseText);
+            console.log('Block Data:', jsonData);
+            setData(jsonData);
+            setError(null);
+          } catch (parseError) {
+            console.error('Parse error:', parseError);
+            setError('Error parsing data');
+          }
+        } else {
+          console.error('XHR Status:', xhr.status);
+          setError('Failed to fetch block data');
+        }
+        setLoading(false);
+      };
+
+      xhr.onerror = function() {
+        console.error('Network error occurred');
+        setError('Network error occurred');
+        setLoading(false);
+      };
+
+      xhr.send();
+    };
+
+    if (id) {
+      fetchBlockData();
+    }
+
+    return () => {
+      setData(null);
+      setError(null);
+      setLoading(true);
+    };
+  }, [id]);
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-[#000033] text-white flex items-center justify-center">
+        <div className="text-center">
+          <div className="text-xl mb-4">Loading Block Details...</div>
+          <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-white mx-auto"></div>
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="min-h-screen bg-[#000033] text-white flex items-center justify-center">
+        <div className="text-center">
+          <div className="text-red-500 text-xl mb-4">{error}</div>
+          <button 
+            onClick={() => window.location.reload()} 
+            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+          >
+            Retry
+          </button>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-[#000033]">

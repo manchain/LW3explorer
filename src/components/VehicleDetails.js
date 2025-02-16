@@ -1,10 +1,81 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { FaArrowLeft, FaBars } from 'react-icons/fa';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 function VehicleDetails() {
+  const [data, setData] = useState(null);
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
+  const { id } = useParams();
   const [menuOpen, setMenuOpen] = useState(false);
+
+  useEffect(() => {
+    const fetchVehicleData = async () => {
+      try {
+        // Using local proxy server
+        const response = await fetch('http://localhost:3001/api/vehicle/0x10dC5f5E1fdAc427e9c0AB3DA993F368adCAAE01');
+        
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        
+        const jsonData = await response.json();
+        console.log('Vehicle Data:', jsonData);
+        setData(jsonData);
+      } catch (error) {
+        console.error('Error details:', error);
+        setError('Failed to fetch vehicle data. Please try again later.');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchVehicleData();
+  }, []);
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-[#000033] text-white flex items-center justify-center">
+        <div className="text-center">
+          <div className="text-xl mb-4">Loading Vehicle Details...</div>
+          <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-white mx-auto"></div>
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="min-h-screen bg-[#000033] text-white flex items-center justify-center">
+        <div className="text-center">
+          <div className="text-red-500 text-xl mb-4">{error}</div>
+          <button 
+            onClick={() => window.location.reload()} 
+            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+          >
+            Retry
+          </button>
+        </div>
+      </div>
+    );
+  }
+
+  if (!data || !data.object) {
+    return (
+      <div className="min-h-screen bg-[#000033] text-white flex items-center justify-center">
+        <div className="text-center">
+          <div className="text-xl mb-4">No vehicle data found</div>
+          <button 
+            onClick={() => navigate('/')}
+            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+          >
+            Go Back
+          </button>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-[#000033]">
@@ -54,7 +125,7 @@ function VehicleDetails() {
               <img src="/tata-logo.jpg" alt="TT" className="w-8 h-8" />
             </div>
             <div>
-              <h1 className="text-xl font-bold text-[#1A1A1A]">Electric Vehicle #EV789</h1>
+              <h1 className="text-xl font-bold text-[#1A1A1A]">{data.object.productName}</h1>
             </div>
           </div>
 
@@ -65,21 +136,21 @@ function VehicleDetails() {
                 bg: "F8FFF8", 
                 color: "#0066FF", 
                 label: "Current Value", 
-                value: "$45,000",
+                value: `$${data.object.value?.toLocaleString() || 'N/A'}`,
                 labelColor: "#0066FF"  // Blue
               },
               { 
                 bg: "FAF5FF", 
                 color: "#8833FF", 
                 label: "Distance Moved", 
-                value: "1,234 mi",
+                value: `${data.object.totalDistanceKm?.toFixed(2) || 0} km`,
                 labelColor: "#8833FF"  // Purple
               },
               { 
                 bg: "F8FFF8", 
                 color: "#00AA00", 
                 label: "Production Date", 
-                value: "Oct 15,2023",
+                value: new Date(data.object.createdAt).toLocaleDateString(),
                 labelColor: "#00AA00"  // Green
               }
             ].map((stat, index) => (
@@ -114,11 +185,11 @@ function VehicleDetails() {
                   <div className="flex justify-between items-center">
                     <div>
                       <div className="text-sm text-gray-600">From</div>
-                      <div className="font-medium text-[#1A1A1A]">Mumbai, India</div>
+                      <div className="font-medium text-[#1A1A1A]">{data.object.currentLocation?.city || 'N/A'}</div>
                     </div>
                     <div className="text-right">
                       <div className="text-sm text-gray-600">To</div>
-                      <div className="font-medium text-[#1A1A1A]">Delhi, India</div>
+                      <div className="font-medium text-[#1A1A1A]">{data.object.currentLocation?.city || 'N/A'}</div>
                     </div>
                   </div>
                 </div>
@@ -134,7 +205,7 @@ function VehicleDetails() {
                   </div>
                   <div className="flex justify-between items-center">
                     <div className="text-gray-600">Distance Moved</div>
-                    <div className="font-medium text-[#1A1A1A]">1,234 miles</div>
+                    <div className="font-medium text-[#1A1A1A]">{data.object.totalDistanceKm?.toFixed(2) || 0} km</div>
                   </div>
                   <div className="flex justify-between items-center">
                     <div className="text-gray-600">Txn Hash</div>
@@ -142,7 +213,7 @@ function VehicleDetails() {
                   </div>
                   <div className="flex justify-between items-center">
                     <div className="text-gray-600">Timestamp</div>
-                    <div className="font-medium text-[#1A1A1A]">Oct 15, 2023 14:30:45</div>
+                    <div className="font-medium text-[#1A1A1A]">{new Date(data.object.createdAt).toLocaleString()}</div>
                   </div>
                 </div>
               </div>

@@ -1,32 +1,66 @@
 import React, { useState, useEffect } from 'react';
 import { FaArrowLeft, FaBars } from 'react-icons/fa';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 import { GoogleMap, LoadScript, DirectionsService, DirectionsRenderer } from '@react-google-maps/api';
 
 const TransactionDetails = () => {
-  const navigate = useNavigate();
   const [menuOpen, setMenuOpen] = useState(false);
   const [directions, setDirections] = useState(null);
   const [error, setError] = useState(null);
-
-  // Sample data for demonstration
-  const transactionData = {
-    hash: '34c4ef58189040664dde284aca4e6ba020c96b5647ebbf9b12fb15e9d25817f4',
-    block: '11482520',
-    assurance: 'Low',
-    confirmations: 1,
-    message: 'Minswap: Order Executed',
-    timestamp: 'Feb 14, 2025 2:12:27 PM (Confirmed within 15 secs)',
-    totalFees: '0.178745 USD (0.14 $)',
-    totalOutput: '8.35801 USD (6.79 $)',
-    certificates: 0,
-    ttl: 'Feb 14, 2025 2:15:27 PM (147956257)',
-  };
+  const [data, setData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
+  const { id } = useParams();
 
   const handleBack = () => {
     navigate(-1); // Navigate back to the previous page
   };
+
+  useEffect(() => {
+    const fetchTransactionData = () => {
+      const xhr = new XMLHttpRequest();
+      xhr.open('GET', `http://localhost:3001/api/transaction/${id}`);
+      
+      xhr.onreadystatechange = function() {
+        if (xhr.readyState !== 4) return;
+
+        if (xhr.status === 200) {
+          try {
+            const jsonData = JSON.parse(xhr.responseText);
+            console.log('Transaction Data:', jsonData);
+            setData(jsonData);
+            setError(null);
+          } catch (parseError) {
+            console.error('Parse error:', parseError);
+            setError('Error parsing data');
+          }
+        } else {
+          console.error('XHR Status:', xhr.status);
+          setError('Failed to fetch transaction data');
+        }
+        setLoading(false);
+      };
+
+      xhr.onerror = function() {
+        console.error('Network error occurred');
+        setError('Network error occurred');
+        setLoading(false);
+      };
+
+      xhr.send();
+    };
+
+    if (id) {
+      fetchTransactionData();
+    }
+
+    return () => {
+      setData(null);
+      setError(null);
+      setLoading(true);
+    };
+  }, [id]);
 
   useEffect(() => {
     const fetchDirections = async () => {
@@ -48,6 +82,33 @@ const TransactionDetails = () => {
 
     fetchDirections();
   }, []);
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-[#000033] text-white flex items-center justify-center">
+        <div className="text-center">
+          <div className="text-xl mb-4">Loading Transaction Details...</div>
+          <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-white mx-auto"></div>
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="min-h-screen bg-[#000033] text-white flex items-center justify-center">
+        <div className="text-center">
+          <div className="text-red-500 text-xl mb-4">{error}</div>
+          <button 
+            onClick={() => window.location.reload()} 
+            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+          >
+            Retry
+          </button>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-[#000033] p-6">
@@ -88,39 +149,39 @@ const TransactionDetails = () => {
       <div className="bg-white rounded-lg shadow-lg p-6 border border-gray-300 grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div className="flex flex-col">
           <span className="font-bold text-black">Transaction Hash</span>
-          <span className="text-gray-400">{transactionData.hash}</span>
+          <span className="text-gray-400">{data?.transaction.hash}</span>
         </div>
         <div className="flex flex-col">
           <span className="font-bold text-black">Block</span>
-          <span className="text-gray-400">{transactionData.block}</span>
+          <span className="text-gray-400">{data?.block.number}</span>
         </div>
         <div className="flex flex-col">
           <span className="font-bold text-black">Assurance</span>
-          <span className="text-gray-400">{transactionData.assurance} ({transactionData.confirmations} confirmation)</span>
+          <span className="text-gray-400">{data?.transaction.assurance} ({data?.transaction.confirmations} confirmation)</span>
         </div>
         <div className="flex flex-col">
           <span className="font-bold text-black">Message</span>
-          <span className="text-gray-400">{transactionData.message}</span>
+          <span className="text-gray-400">{data?.transaction.message}</span>
         </div>
         <div className="flex flex-col">
           <span className="font-bold text-black">Timestamp</span>
-          <span className="text-gray-400">{transactionData.timestamp}</span>
+          <span className="text-gray-400">{new Date(data?.transaction.timestamp).toLocaleString()}</span>
         </div>
         <div className="flex flex-col">
           <span className="font-bold text-black">Total Fees</span>
-          <span className="text-red-500">{transactionData.totalFees}</span>
+          <span className="text-red-500">{data?.transaction.totalFees}</span>
         </div>
         <div className="flex flex-col">
           <span className="font-bold text-black">Total Valued</span>
-          <span className="text-green-500">{transactionData.totalOutput}</span>
+          <span className="text-green-500">{data?.transaction.totalOutput}</span>
         </div>
         <div className="flex flex-col">
           <span className="font-bold text-black">Certificates</span>
-          <span className="text-gray-400">{transactionData.certificates}</span>
+          <span className="text-gray-400">{data?.transaction.certificates}</span>
         </div>
         <div className="flex flex-col">
           <span className="font-bold text-black">TTL</span>
-          <span className="text-gray-400">{transactionData.ttl}</span>
+          <span className="text-gray-400">{data?.transaction.ttl}</span>
         </div>
       </div>
 
