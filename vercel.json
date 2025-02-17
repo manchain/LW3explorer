@@ -1,0 +1,43 @@
+{
+    "rewrites": [
+        {
+            "source": "/landing",
+            "destination": "http://64.227.185.193:3009/landing"
+        },
+        {
+            "source": "/object/:id",
+            "destination": "http://64.227.185.193:3009/object/:id"
+        },
+        {
+            "source": "/block/:id",
+            "destination": "http://64.227.185.193:3009/block/:id"
+        },
+        {
+            "source": "/transaction/:id",
+            "destination": "http://64.227.185.193:3009/transaction/:id"
+        },
+        {
+            "source": "/setLocation",
+            "destination": "http://64.227.185.193:3009/setLocation"
+        }
+    ],
+    "headers": [
+        {
+            "source": "/(.*)",
+            "headers": [
+                {
+                    "key": "Access-Control-Allow-Origin",
+                    "value": "*"
+                },
+                {
+                    "key": "Access-Control-Allow-Methods",
+                    "value": "GET, POST, PUT, DELETE, OPTIONS"
+                },
+                {
+                    "key": "Access-Control-Allow-Headers",
+                    "value": "X-Requested-With, Content-Type, Accept"
+                }
+            ]
+        }
+    ]
+}
