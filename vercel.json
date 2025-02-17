@@ -1,24 +1,41 @@
 {
-    "rewrites": [
+    "version": 2,
+    "routes": [
         {
-            "source": "/landing",
-            "destination": "http://64.227.185.193:3009/landing"
+            "src": "/landing",
+            "dest": "http://64.227.185.193:3009/landing",
+            "methods": [
+                "GET"
+            ]
         },
         {
-            "source": "/object/:id",
-            "destination": "http://64.227.185.193:3009/object/:id"
+            "src": "/object/(?<id>[^/]*)",
+            "dest": "http://64.227.185.193:3009/object/$id",
+            "methods": [
+                "GET"
+            ]
         },
         {
-            "source": "/block/:id",
-            "destination": "http://64.227.185.193:3009/block/:id"
+            "src": "/block/(?<id>[^/]*)",
+            "dest": "http://64.227.185.193:3009/block/$id",
+            "methods": [
+                "GET"
+            ]
         },
         {
-            "source": "/transaction/:id",
-            "destination": "http://64.227.185.193:3009/transaction/:id"
+            "src": "/transaction/(?<id>[^/]*)",
+            "dest": "http://64.227.185.193:3009/transaction/$id",
+            "methods": [
+                "GET"
+            ]
         },
         {
-            "source": "/setLocation",
-            "destination": "http://64.227.185.193:3009/setLocation"
+            "src": "/setLocation",
+            "dest": "http://64.227.185.193:3009/setLocation",
+            "methods": [
+                "POST",
+                "OPTIONS"
+            ]
         }
     ],
     "headers": [
@@ -26,32 +43,22 @@
             "source": "/(.*)",
             "headers": [
                 {
+                    "key": "Access-Control-Allow-Credentials",
+                    "value": "true"
+                },
+                {
                     "key": "Access-Control-Allow-Origin",
                     "value": "*"
                 },
                 {
                     "key": "Access-Control-Allow-Methods",
-                    "value": "GET, POST, PUT, DELETE, OPTIONS"
+                    "value": "GET,OPTIONS,PATCH,DELETE,POST,PUT"
                 },
                 {
                     "key": "Access-Control-Allow-Headers",
-                    "value": "X-Requested-With, Content-Type, Accept"
-                },
-                {
-                    "key": "Access-Control-Max-Age",
-                    "value": "86400"
+                    "value": "X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version"
                 }
             ]
-        }
-    ],
-    "routes": [
-        {
-            "source": "/setLocation",
-            "methods": [
-                "POST",
-                "OPTIONS"
-            ],
-            "destination": "http://64.227.185.193:3009/setLocation"
         }
     ]
 }
