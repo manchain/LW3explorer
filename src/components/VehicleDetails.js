@@ -43,7 +43,7 @@ function VehicleDetails() {
   useEffect(() => {
     const fetchVehicleData = async () => {
       try {
-        const response = await axios.get(`/api/object/${id}`);
+        const response = await axios.get(`/object/${id}`);
         console.log('Vehicle Data:', response.data);
         setData(response.data);
       } catch (error) {

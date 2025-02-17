@@ -25,7 +25,7 @@ const TransactionDetails = () => {
   useEffect(() => {
     const fetchTransactionData = async () => {
       try {
-        const response = await axios.get(`/api/transaction/${id}`);
+        const response = await axios.get(`/transaction/${id}`);
         console.log('Transaction Data:', response.data);
         setData(response.data);
         setError(null);

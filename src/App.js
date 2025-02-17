@@ -8,7 +8,6 @@ import QRScanner from './components/QRScanner';
 import axios from 'axios';
 
 // Configure axios defaults
-axios.defaults.baseURL = 'http://64.227.185.193:3009';
 axios.defaults.headers.common['Accept'] = 'application/json';
 axios.defaults.headers.common['Content-Type'] = 'application/json';
 axios.defaults.withCredentials = false; // Important for CORS

@@ -14,7 +14,7 @@ function BlockDetails() {
   useEffect(() => {
     const fetchBlockData = async () => {
       try {
-        const response = await axios.get(`/api/block/${id}`);
+        const response = await axios.get(`/block/${id}`);
         console.log('Block Data:', response.data);
         setData(response.data);
         setError(null);
