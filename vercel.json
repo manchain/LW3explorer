@@ -1,41 +1,25 @@
 {
     "version": 2,
-    "routes": [
+    "rewrites": [
         {
-            "src": "/landing",
-            "dest": "http://64.227.185.193:3009/landing",
-            "methods": [
-                "GET"
-            ]
+            "source": "/landing",
+            "destination": "http://64.227.185.193:3009/landing"
         },
         {
-            "src": "/object/(?<id>[^/]*)",
-            "dest": "http://64.227.185.193:3009/object/$id",
-            "methods": [
-                "GET"
-            ]
+            "source": "/object/:id",
+            "destination": "http://64.227.185.193:3009/object/:id"
         },
         {
-            "src": "/block/(?<id>[^/]*)",
-            "dest": "http://64.227.185.193:3009/block/$id",
-            "methods": [
-                "GET"
-            ]
+            "source": "/block/:id",
+            "destination": "http://64.227.185.193:3009/block/:id"
         },
         {
-            "src": "/transaction/(?<id>[^/]*)",
-            "dest": "http://64.227.185.193:3009/transaction/$id",
-            "methods": [
-                "GET"
-            ]
+            "source": "/transaction/:id",
+            "destination": "http://64.227.185.193:3009/transaction/:id"
         },
         {
-            "src": "/setLocation",
-            "dest": "http://64.227.185.193:3009/setLocation",
-            "methods": [
-                "POST",
-                "OPTIONS"
-            ]
+            "source": "/setLocation",
+            "destination": "http://64.227.185.193:3009/setLocation"
         }
     ],
     "headers": [
