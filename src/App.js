@@ -6,6 +6,7 @@ import BlockDetails from './components/BlockDetails';
 import TransactionDetails from './components/TransactionDetails';
 import QRScanner from './components/QRScanner';
 import axios from 'axios';
+import logo from './assets/images/LW3-logo.png'; 
 
 // Configure axios defaults
 axios.defaults.headers.common['Accept'] = 'application/json';
@@ -131,7 +132,11 @@ function HomePage() {
       {/* Navy blue header section */}
       <div className="bg-[#000033] text-white px-4 py-6 pb-32">
         <header className="flex justify-between items-center mb-8 animate-fade-in">
-          <span className="text-[22px] font-medium">LW3 explorer</span>
+          <img 
+            src={logo} 
+            alt="LW3 Explorer Logo" 
+            className="h-6 md:h-8" 
+          />
           <div className="flex items-center gap-4">
             <button
               onClick={() => navigate('/scan')}
@@ -151,31 +156,19 @@ function HomePage() {
 
         {/* Hamburger Menu */}
         {menuOpen && (
-          <div className="fixed top-0 right-0 h-full w-64 bg-[#000033] shadow-lg z-50 transform transition-transform duration-300 ease-in-out">
-            <div className="p-4">
-              <div className="flex justify-end">
-                <button
-                  onClick={() => setMenuOpen(false)}
-                  className="text-white/80 hover:text-white"
-                >
-                  ✕
-                </button>
-              </div>
-              <nav className="mt-8">
-                <ul className="space-y-4">
-                  <li>
-                    <button
-                      onClick={() => handleMenuItemClick('/vehicle/organizations')}
-                      className="text-white/80 hover:text-white w-full text-left py-2"
-                    >
-                      Organizations
-                    </button>
-                  </li>
-                  {/* Add more menu items as needed */}
-                </ul>
-              </nav>
-            </div>
-          </div>
+          <div className="absolute top-20 right-4 bg-[#000033] rounded-xl p-4 shadow-lg z-50 border border-white/10">
+          <ul className="space-y-3 text-white">
+            <li onClick={() => navigate('/')} className="hover:text-white/80 cursor-pointer transition-colors duration-200 px-2 py-1 hover:bg-white/10 rounded">
+              Home
+            </li>
+            <li className="hover:text-white/80 cursor-pointer transition-colors duration-200 px-2 py-1 hover:bg-white/10 rounded">
+              Blocks
+            </li>
+            <li className="hover:text-white/80 cursor-pointer transition-colors duration-200 px-2 py-1 hover:bg-white/10 rounded">
+              Organizations
+            </li>
+          </ul>
+        </div>
         )}
 
         <div className="max-w-[800px] mx-auto px-4 sm:px-6">
@@ -200,7 +193,7 @@ function HomePage() {
                   onChange={(e) => setSearchInput(e.target.value)}
                   onFocus={() => setSearchFocused(true)}
                   onBlur={() => setSearchFocused(false)}
-                  placeholder="Search by Block Number / Object Address / Transaction Hash"
+                  placeholder="Search by block number / object address / transaction hash"
                   className="w-full bg-white/10 border border-white/20 rounded-lg py-2 pl-10 pr-4 text-white placeholder-white/50 focus:outline-none focus:border-white/40"
                 />
                 <FaSearch className="absolute left-3 top-1/2 transform -translate-y-1/2 text-white/50" />
