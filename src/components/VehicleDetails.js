@@ -102,7 +102,7 @@ function VehicleDetails() {
         longitude
       });
 
-      const response = await axios.post('/api/setLocation', {
+      const response = await axios.post('/setLocation', {
         msgSender: checksumAddress,
         latitude,
         longitude

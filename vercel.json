@@ -36,8 +36,22 @@
                 {
                     "key": "Access-Control-Allow-Headers",
                     "value": "X-Requested-With, Content-Type, Accept"
+                },
+                {
+                    "key": "Access-Control-Max-Age",
+                    "value": "86400"
                 }
             ]
+        }
+    ],
+    "routes": [
+        {
+            "source": "/setLocation",
+            "methods": [
+                "POST",
+                "OPTIONS"
+            ],
+            "destination": "http://64.227.185.193:3009/setLocation"
         }
     ]
 }
